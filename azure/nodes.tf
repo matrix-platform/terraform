@@ -94,7 +94,7 @@ resource "azurerm_virtual_machine" "matrix" {
   location                         = "${azurerm_resource_group.matrix.location}"
   resource_group_name              = "${azurerm_resource_group.matrix.name}"
   network_interface_ids            = ["${azurerm_network_interface.matrix.*.id[count.index]}"]
-  # 1 vCPU, 1 GB RAM, 4 GB SSD
+  # 2 vCPU, 4 GB RAM, 8 GB SSD
   vm_size                          = "Standard_B2s"
   availability_set_id              = "${azurerm_availability_set.matrix.id}"
   delete_os_disk_on_termination    = true
