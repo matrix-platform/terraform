@@ -2,11 +2,6 @@
 resource "azurerm_resource_group" "matrix" {
   name     = "${var.resource_group}"
   location = "${var.region}"
-
-  tags {
-    environment   = "${var.environment}"
-    configuration = "${var.configuration}"
-  }  
 }
 
 # create virtual network
@@ -14,12 +9,7 @@ resource "azurerm_virtual_network" "matrix" {
   name                = "matrix-network"
   address_space       = ["${var.network_address}"]
   location            = "${azurerm_resource_group.matrix.location}"
-  resource_group_name = "${azurerm_resource_group.matrix.name}"
-
-  tags {
-    environment   = "${var.environment}"
-    configuration = "${var.configuration}"
-  }  
+  resource_group_name = "${azurerm_resource_group.matrix.name}" 
 }
 
 # create network subnet
@@ -38,9 +28,4 @@ resource "azurerm_availability_set" "matrix" {
   managed                      = true
   platform_fault_domain_count  = 1
   platform_update_domain_count = 1
-
-  tags {
-    environment   = "${var.environment}"
-    configuration = "${var.configuration}"
-  }
 }

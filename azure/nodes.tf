@@ -5,11 +5,6 @@ resource "azurerm_public_ip" "matrix" {
   location                     = "${azurerm_resource_group.matrix.location}"
   resource_group_name          = "${azurerm_resource_group.matrix.name}"
   public_ip_address_allocation = "static"
-
-  tags {
-    environment   = "${var.environment}"
-    configuration = "${var.configuration}"
-  }
 }
 
 # create network security group
@@ -56,11 +51,6 @@ resource "azurerm_network_security_group" "matrix" {
     source_address_prefix      = "${var.whitelist}"
     destination_address_prefix = "*"
   }
-
-  tags {
-    environment   = "${var.environment}"
-    configuration = "${var.configuration}"
-  }
 }
 
 # create network interface
@@ -79,11 +69,6 @@ resource "azurerm_network_interface" "matrix" {
     public_ip_address_id                      = "${azurerm_public_ip.matrix.*.id[count.index]}"
     # uncomment this when load balancer is available
     # load_balancer_backend_address_pools_ids = ["${azurerm_lb_backend_address_pool.load_balancer_backend.id}"]
-  }
-
-  tags {
-    environment   = "${var.environment}"
-    configuration = "${var.configuration}"
   }
 }
 
@@ -134,11 +119,6 @@ resource "azurerm_virtual_machine" "matrix" {
        key_data = "${file("authorized_keys")}"
        path     = "/home/centos/.ssh/authorized_keys"
     }
-  }
-
-  tags {
-    environment   = "${var.environment}"
-    configuration = "${var.configuration}"
   }
 }
 
