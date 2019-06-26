@@ -1,1 +1,1 @@
-terraform plan -var-file="config-%1%.tfvars"
+terraform plan -var-file="config-%1-%2.tfvars"

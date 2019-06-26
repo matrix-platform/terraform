@@ -1,1 +1,1 @@
-terraform destroy -var-file="config-%1%.tfvars"
+terraform destroy -var-file="config-%1-%2.tfvars"

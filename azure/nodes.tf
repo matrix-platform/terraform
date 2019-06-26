@@ -51,6 +51,32 @@ resource "azurerm_network_security_group" "matrix" {
     source_address_prefix      = "${var.whitelist}"
     destination_address_prefix = "*"
   }
+
+  # allow nuget port traffic to whitelisted (not required if bastion host is available)
+  security_rule {
+    name                       = "matrix-nodes-allow-5555"
+    priority                   = 4030
+    direction                  = "Inbound"
+    access                     = "Allow"
+    protocol                   = "Tcp"
+    source_port_range          = "*"
+    destination_port_range     = "5555"
+    source_address_prefix      = "${var.whitelist}"
+    destination_address_prefix = "*"
+  }
+
+  # allow jenkins port traffic to whitelisted (not required if bastion host is available)
+  security_rule {
+    name                       = "matrix-nodes-allow-8888"
+    priority                   = 4040
+    direction                  = "Inbound"
+    access                     = "Allow"
+    protocol                   = "Tcp"
+    source_port_range          = "*"
+    destination_port_range     = "8888"
+    source_address_prefix      = "${var.whitelist}"
+    destination_address_prefix = "*"
+  }
 }
 
 # create network interface
